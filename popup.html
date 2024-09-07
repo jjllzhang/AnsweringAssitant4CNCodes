@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>密码技术竞赛智能答题助手</title>
+    <style>
+        body {
+            width: 300px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background-color: #f0f4f8;
+            margin: 0;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #34495e;
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 80px;
+            margin-bottom: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            padding: 8px;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s, fadeOut 0.3s 2.7s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>密码技术竞赛智能答题助手</h1>
+
+    <div class="section">
+        <h2>单选题</h2>
+        <textarea id="singleChoiceAnswers" placeholder="请输入单选题答案，每行一个（格式：1. A）"></textarea>
+        <button id="submitSingle">提交单选题答案</button>
+    </div>
+
+    <div class="section">
+        <h2>多选题</h2>
+        <textarea id="multipleChoiceAnswers" placeholder="请输入多选题答案，每行一个（格式：1. A, B, C）"></textarea>
+        <button id="submitMultiple">提交多选题答案</button>
+    </div>
+
+    <div class="section">
+        <h2>判断题</h2>
+        <textarea id="trueFalseAnswers" placeholder="请输入判断题答案，每行一个（格式：1. 正确）"></textarea>
+        <button id="submitTrueFalse">提交判断题答案</button>
+    </div>
+
+    <div id="message"></div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
