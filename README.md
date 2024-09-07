@@ -32,7 +32,7 @@ For a better user experience, we recommend using a GPT that supports file upload
    ```
    仔细阅读题库，之后我会向你提问，请你根据题库内容和已有知识回答我的问题。
 
-   (tips: dont forget to upload the knowledeg base)
+   (tips: dont forget to upload the knowledge base)
    ```
 
 2. Provide multiple choice questions and have GPT return answers in the given format.
