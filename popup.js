@@ -62,7 +62,6 @@ function showMessage(message) {
     }, 3000);
 }
 
-
 document.getElementById('submitSingle').addEventListener('click', () => {
     const input = document.getElementById('singleChoiceAnswers').value;
     const answers = extractSingleChoiceAnswers(input);
@@ -86,4 +85,97 @@ document.getElementById('submitTrueFalse').addEventListener('click', () => {
 
     console.log('Extracted true/false answers:', answers);
     sendAnswers('truefalse', answers);
+});
+
+document.getElementById('fetchSingle').addEventListener('click', () => {
+    console.log('Fetch Single button clicked');
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (chrome.runtime.lastError) {
+            console.error('Error querying tabs:', chrome.runtime.lastError);
+            return;
+        }
+        if (tabs.length === 0) {
+            console.error('No active tab found');
+            return;
+        }
+        console.log('Sending message to content script');
+        chrome.tabs.sendMessage(tabs[0].id, {
+            action: 'fetchSingleChoiceQuestions'
+        }, async response => {
+            console.log('Received response from content script:', response);
+            if (chrome.runtime.lastError) {
+                console.error('Error sending message:', chrome.runtime.lastError);
+            } else if (response && response.questions) {
+                await copyToClipboard(response.questions);
+                showMessage('单选题已复制到剪贴板');
+            } else {
+                console.error('Unexpected response:', response);
+            }
+        });
+    });
+});
+
+async function copyToClipboard(text) {
+    try {
+        await navigator.clipboard.writeText(text);
+        console.log('Text copied to clipboard');
+    } catch (err) {
+        console.error('Failed to copy text: ', err);
+    }
+}
+
+document.getElementById('fetchMultiple').addEventListener('click', () => {
+    console.log('Fetch Multiple button clicked');
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (chrome.runtime.lastError) {
+            console.error('Error querying tabs:', chrome.runtime.lastError);
+            return;
+        }
+        if (tabs.length === 0) {
+            console.error('No active tab found');
+            return;
+        }
+        console.log('Sending message to content script');
+        chrome.tabs.sendMessage(tabs[0].id, {
+            action: 'fetchMultipleChoiceQuestions'
+        }, async response => {
+            console.log('Received response from content script:', response);
+            if (chrome.runtime.lastError) {
+                console.error('Error sending message:', chrome.runtime.lastError);
+            } else if (response && response.questions) {
+                await copyToClipboard(response.questions);
+                showMessage('多选题已复制到剪贴板');
+            } else {
+                console.error('Unexpected response:', response);
+            }
+        });
+    });
+});
+
+document.getElementById('fetchTrueFalse').addEventListener('click', () => {
+    console.log('Fetch True/False button clicked');
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (chrome.runtime.lastError) {
+            console.error('Error querying tabs:', chrome.runtime.lastError);
+            return;
+        }
+        if (tabs.length === 0) {
+            console.error('No active tab found');
+            return;
+        }
+        console.log('Sending message to content script');
+        chrome.tabs.sendMessage(tabs[0].id, {
+            action: 'fetchTrueFalseQuestions'
+        }, async response => {
+            console.log('Received response from content script:', response);
+            if (chrome.runtime.lastError) {
+                console.error('Error sending message:', chrome.runtime.lastError);
+            } else if (response && response.questions) {
+                await copyToClipboard(response.questions);
+                showMessage('判断题已复制到剪贴板');
+            } else {
+                console.error('Unexpected response:', response);
+            }
+        });
+    });
 });

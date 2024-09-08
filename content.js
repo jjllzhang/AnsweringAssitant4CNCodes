@@ -88,6 +88,94 @@ function fillTrueFalseAnswers(answers) {
     });
 }
 
+function fetchSingleChoiceQuestions() {
+    const singleChoiceSection = document.getElementById('single_test');
+    if (!singleChoiceSection) {
+        console.error('Single choice section not found');
+        return '';
+    }
+
+    const questions = singleChoiceSection.querySelectorAll('div.des');
+    let questionText = "回答下列单选题，并按如下格式返回：\n1. A\n2. C\n...\n\n";
+
+    questions.forEach((question) => {
+        const questionContent = question.querySelector('p').textContent.trim();
+        const options = Array.from(question.querySelectorAll('li')).map(li => {
+            const input = li.querySelector('input[type="radio"]');
+            if (input) {
+                return `${input.value}. ${li.textContent.trim().replace(/^[A-D]\.\s*/, '')}`;
+            }
+            return null;
+        }).filter(option => option !== null);
+
+        // 直接使用题目中的序号，不再添加额外的序号
+        questionText += `${questionContent}\n`;
+        options.forEach(option => {
+            questionText += `   ${option}\n`;
+        });
+        questionText += '\n';
+    });
+
+    console.log('Fetched questions:', questionText);
+    return questionText.trim();
+}
+
+function fetchMultipleChoiceQuestions() {
+    const multipleChoiceSection = document.getElementById('multiple_test');
+    if (!multipleChoiceSection) {
+        console.error('Multiple choice section not found');
+        return '';
+    }
+
+    const questions = multipleChoiceSection.querySelectorAll('div.des');
+    let questionText = "回答下列多选题，并按如下格式返回：\n1. A, C\n2. A, B, C\n...\n\n";
+
+    questions.forEach((question) => {
+        const questionContent = question.querySelector('p').textContent.trim();
+        const options = Array.from(question.querySelectorAll('li')).map(li => {
+            const input = li.querySelector('input[type="checkbox"]');
+            if (input) {
+                return `${input.value}. ${li.textContent.trim().replace(/^[A-D]\.\s*/, '')}`;
+            }
+            return null;
+        }).filter(option => option !== null);
+
+        questionText += `${questionContent}\n`;
+        options.forEach(option => {
+            questionText += `   ${option}\n`;
+        });
+        questionText += '\n';
+    });
+
+    console.log('Fetched multiple choice questions:', questionText);
+    return questionText.trim();
+}
+
+function fetchTrueFalseQuestions() {
+    const trueFalseSection = document.getElementById('trueorfalse_test');
+    if (!trueFalseSection) {
+        console.error('True/false section not found');
+        return '';
+    }
+
+    const questions = trueFalseSection.querySelectorAll('div.des_2');
+    let questionText = "回答下列判断题，并按如下格式返回：\n1. 正确\n2. 错误\n...\n\n";
+
+    questions.forEach((question) => {
+        const questionContent = question.querySelector('p').textContent.trim();
+        const options = Array.from(question.querySelectorAll('input[type="radio"]')).map(input => {
+            return `${input.value === 'T' ? '正确' : '错误'}`;
+        });
+
+        questionText += `${questionContent}\n`;
+        questionText += `   ${options.join('    ')}\n`;
+        questionText += '\n';
+    });
+
+    console.log('Fetched true/false questions:', questionText);
+    return questionText.trim();
+}
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log('Received message:', request);
     if (request.action === 'fillAnswers') {
@@ -105,5 +193,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 console.error('Unknown answer type:', request.type);
         }
         sendResponse({ status: 'Answers filled' });
+    } else if (request.action === 'fetchSingleChoiceQuestions') {
+        const questions = fetchSingleChoiceQuestions();
+        sendResponse({ questions: questions });
+    } else if (request.action === 'fetchMultipleChoiceQuestions') {
+        const questions = fetchMultipleChoiceQuestions();
+        sendResponse({ questions: questions });
+    } else if (request.action === 'fetchTrueFalseQuestions') {
+        const questions = fetchTrueFalseQuestions();
+        sendResponse({ questions: questions });
     }
+    return true; // 保持消息通道开放
 });

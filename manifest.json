@@ -4,7 +4,9 @@
     "version": "1.0",
     "description": "一款智能的在线答题辅助工具，支持单选题、多选题和判断题的自动填充。",
     "permissions": [
-      "activeTab"
+      "activeTab",
+      "clipboardWrite",
+      "clipboard-write"
     ],
     "browser_action": {
       "default_popup": "popup.html",
@@ -20,4 +22,3 @@
       }
     ]
   }
-  
