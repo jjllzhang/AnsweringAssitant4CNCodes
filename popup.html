@@ -7,9 +7,8 @@
     <title>密码技术竞赛智能答题助手</title>
     <style>
         body {
-            width: 300px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
+            padding: 15px;
             background-color: #f0f4f8;
             margin: 0;
         }
@@ -17,85 +16,155 @@
         h1 {
             color: #2c3e50;
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 24px;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 600;
         }
 
         .section {
             background-color: white;
             border-radius: 8px;
-            padding: 15px;
+            padding: 12px;
             margin-bottom: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
         }
 
         h2 {
             color: #34495e;
             margin-top: 0;
-            font-size: 18px;
+            font-size: 16px;
             margin-bottom: 10px;
+            font-weight: 500;
         }
 
         textarea {
-            width: 100%;
+            width: calc(100% - 20px);
             height: 80px;
             margin-bottom: 10px;
-            border: 1px solid #bdc3c7;
-            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
             padding: 8px;
-            font-size: 14px;
+            font-size: 13px;
             resize: vertical;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            background-color: #fff;
+        }
+
+        textarea::placeholder {
+            color: #999;
+            font-style: italic;
+            white-space: pre-line;
+            line-height: 1.4;
+        }
+
+        /* Scrollbar styles */
+        textarea::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        textarea::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        textarea::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        textarea::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
         }
 
         button {
-            width: 100%;
-            padding: 10px;
+            flex: 1;
+            padding: 8px;
             background-color: #3498db;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 14px;
-            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            font-weight: 500;
+            margin: 0 4px;
+        }
+
+        button:first-child {
+            margin-left: 0;
+        }
+
+        button:last-child {
+            margin-right: 0;
         }
 
         button:hover {
             background-color: #2980b9;
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(1px);
         }
 
         #message {
             position: fixed;
-            bottom: 20px;
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #3498db;
+            background-color: #2ecc71;
             color: white;
-            padding: 10px 20px;
-            border-radius: 4px;
+            padding: 8px 16px;
+            border-radius: 20px;
             display: none;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             animation: fadeIn 0.3s, fadeOut 0.3s 2.7s;
+            font-size: 13px;
+            font-weight: 500;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
+                transform: translate(-50%, 10px);
             }
 
             to {
                 opacity: 1;
+                transform: translate(-50%, 0);
             }
         }
 
         @keyframes fadeOut {
             from {
                 opacity: 1;
+                transform: translate(-50%, 0);
             }
 
             to {
                 opacity: 0;
+                transform: translate(-50%, 10px);
             }
         }
 
@@ -107,23 +176,41 @@
 
     <div class="section">
         <h2>单选题</h2>
-        <textarea id="singleChoiceAnswers" placeholder="请输入单选题答案，每行一个（格式：1. A）"></textarea>
-        <button id="submitSingle">提交单选题答案</button>
-        <button id="fetchSingle">抓取单选题</button>
+        <textarea id="singleChoiceAnswers" placeholder="在此输入单选题答案，每行一个
+格式示例：
+1. A
+2. B
+3. C"></textarea>
+        <div class="button-group">
+            <button id="submitSingle">提交答案</button>
+            <button id="fetchSingle">抓取题目</button>
+        </div>
     </div>
 
     <div class="section">
         <h2>多选题</h2>
-        <textarea id="multipleChoiceAnswers" placeholder="请输入多选题答案，每行一个（格式：1. A, B, C）"></textarea>
-        <button id="submitMultiple">提交多选题答案</button>
-        <button id="fetchMultiple">抓取多选题</button>
+        <textarea id="multipleChoiceAnswers" placeholder="在此输入多选题答案，每行一个
+格式示例：
+1. A, B
+2. B, C, D
+3. A, C, D"></textarea>
+        <div class="button-group">
+            <button id="submitMultiple">提交答案</button>
+            <button id="fetchMultiple">抓取题目</button>
+        </div>
     </div>
 
     <div class="section">
         <h2>判断题</h2>
-        <textarea id="trueFalseAnswers" placeholder="请输入判断题答案，每行一个（格式：1. 正确）"></textarea>
-        <button id="submitTrueFalse">提交判断题答案</button>
-        <button id="fetchTrueFalse">抓取判断题</button>
+        <textarea id="trueFalseAnswers" placeholder="在此输入判断题答案，每行一个
+格式示例：
+1. 正确
+2. 错误
+3. 正确"></textarea>
+        <div class="button-group">
+            <button id="submitTrueFalse">提交答案</button>
+            <button id="fetchTrueFalse">抓取题目</button>
+        </div>
     </div>
 
     <div id="message"></div>

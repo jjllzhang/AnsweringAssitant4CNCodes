@@ -1,24 +1,24 @@
 {
     "manifest_version": 2,
     "name": "密码技术竞赛智能答题助手",
-    "version": "1.1",
+    "version": "1.2",
     "description": "一款智能的在线答题辅助工具，支持单选题、多选题和判断题的自动抓取和填充。可以快速复制题目到剪贴板，并自动填写答案。",
     "permissions": [
       "activeTab",
       "clipboardWrite",
       "clipboard-write"
     ],
-    "browser_action": {
-      "default_popup": "popup.html",
-      "default_icon": "icon.png"
-    },
-    "icons": {
-        "128": "icon.png"
-    },
     "content_scripts": [
       {
         "matches": ["<all_urls>"],
-        "js": ["content.js"]
+        "js": ["content.js", "sidebar.js"]
       }
-    ]
-  }
+    ],
+    "web_accessible_resources": [
+      "popup.html",
+      "icon.png"
+    ],
+    "icons": {
+        "128": "icon.png"
+    }
+}

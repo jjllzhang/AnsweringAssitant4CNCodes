@@ -15,42 +15,7 @@ function extractMultipleChoiceAnswers(input) {
 }
 
 function sendAnswers(type, answers) {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        if (chrome.runtime.lastError) {
-            console.error('Error querying tabs:', chrome.runtime.lastError);
-            return;
-        }
-        if (tabs.length === 0) {
-            console.error('No active tab found');
-            return;
-        }
-        chrome.tabs.sendMessage(tabs[0].id, {
-            action: 'fillAnswers',
-            type: type,
-            answers: answers
-        }, response => {
-            if (chrome.runtime.lastError) {
-                console.error('Error sending message:', chrome.runtime.lastError);
-            } else {
-                console.log('Message sent successfully');
-                let messageText;
-                switch (type) {
-                    case 'single':
-                        messageText = '单选题答案已提交';
-                        break;
-                    case 'multiple':
-                        messageText = '多选题答案已提交';
-                        break;
-                    case 'truefalse':
-                        messageText = '判断题答案已提交';
-                        break;
-                    default:
-                        messageText = '答案已提交';
-                }
-                showMessage(messageText);
-            }
-        });
-    });
+    window.parent.postMessage({ action: 'sendMessageToContentScript', message: { type: type, answers: answers } }, '*');
 }
 
 function showMessage(message) {
@@ -178,4 +143,11 @@ document.getElementById('fetchTrueFalse').addEventListener('click', () => {
             }
         });
     });
+});
+
+window.addEventListener('message', (event) => {
+    if (event.data.action === 'contentScriptResponse') {
+        // 处理来自content script的响应
+        // ...
+    }
 });

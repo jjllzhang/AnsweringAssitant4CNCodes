@@ -205,3 +205,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
     return true; // 保持消息通道开放
 });
+
+// 在文件末尾添加：
+window.addEventListener('message', (event) => {
+    if (event.data.action === 'sendMessageToContentScript') {
+        // 处理消息
+        const response = handleMessage(event.data.message);
+        // 发送响应回popup
+        window.postMessage({ action: 'contentScriptResponse', response: response }, '*');
+    }
+});
+
+function handleMessage(message) {
+    // 根据message.action处理不同的操作
+    // 返回处理结果
+}
