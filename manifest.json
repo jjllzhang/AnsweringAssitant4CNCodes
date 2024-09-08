@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
     "name": "密码技术竞赛智能答题助手",
-    "version": "1.0",
-    "description": "一款智能的在线答题辅助工具，支持单选题、多选题和判断题的自动填充。",
+    "version": "1.1",
+    "description": "一款智能的在线答题辅助工具，支持单选题、多选题和判断题的自动抓取和填充。可以快速复制题目到剪贴板，并自动填写答案。",
     "permissions": [
       "activeTab",
       "clipboardWrite",
