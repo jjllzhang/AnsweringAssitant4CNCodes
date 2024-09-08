@@ -1,76 +1,44 @@
-# AnsweringAssitant4CNCodes
+# 密码技术竞赛智能答题助手
 
-A browser extension to help you answer the questions in [中国密码技术竞赛](https://chinacodes.com.cn). This tool can automatically recognize single-choice, multiple-choice, and true/false questions, offering automatic filling capabilities to enhance the efficiency of answering questions.
+## 简介
 
-## Features
+密码技术竞赛智能答题助手是一款Chrome浏览器扩展，旨在帮助参加[中国密码技术竞赛](https://chinacodes.com.cn)的用户更高效地完成在线答题。本扩展支持单选题、多选题和判断题的自动抓取和填充功能。
 
-- **Question Type Recognition**: Capable of recognizing single-choice, multiple-choice, and true/false questions.
-- **Answer Auto-Filling**: Once the user confirms, it automatically fills the answer into the corresponding answer box.
+## 主要功能
 
-## Installation
+1. **题目抓取**：自动抓取页面上的单选题、多选题和判断题，并复制到剪贴板。
+2. **答案填充**：根据用户输入的答案，自动填充到相应的题目中。
+3. **侧边栏界面**：采用侧边栏设计，方便用户随时调用和隐藏。
 
-1. Visit the [GitHub Repository](https://github.com/jjllzhang/AnsweringAssitant4CNCodes).
-2. Download or clone the repository.
-3. Open your browser's extension page (e.g., in Chrome, go to `chrome://extensions/`).
-4. Enable "Developer mode."
-5. Click "Load unpacked," and select the downloaded or cloned folder.
+## 使用方法
 
-## Usage
+1. 安装扩展后，在竞赛页面的右侧会出现一个固定的logo按钮。
+2. 点击logo按钮，侧边栏会滑出，显示操作界面。
+3. 在操作界面中，您可以：
+   - 点击"抓取题目"按钮，将相应类型的题目复制到剪贴板。
+   - 在文本框中输入答案，然后点击"提交答案"按钮，自动填充到页面中。
+4. 使用完毕后，点击侧边栏右上角的关闭按钮，侧边栏会收起。
 
-- Open a web page for "中国密码技术竞赛" in your browser.
-- Click on the plugin icon in the browser toolbar to activate the answer assistant.
-- Provide the answers of some kinds of formats.
-- Users can select an answer and click "Confirm," after which the plugin will fill in the answer automatically.
+## 答案格式
 
-## Combine this extension with LLM
+- 单选题：每行一个答案，格式为 "1. A"
+- 多选题：每行一个答案，格式为 "1. A, B, C"
+- 判断题：每行一个答案，格式为 "1. 正确" 或 "1. 错误"
 
-For a better user experience, we recommend using a GPT that supports file uploads to get answers. Below is a usage example of kimi chat:
+## 注意事项
 
-1. Upload the knowledge base and tell the GPT to read the questions carefully and answer the questions based on the content and existing knowledge (see attachments for details on the content of the questions).
-   Prompt example:
+- 使用本扩展时请遵守考试规则和相关法律法规。
+- 本扩展仅作为辅助工具，不保证答案的正确性。
+- 使用过程中如遇到任何问题，请及时反馈。
 
-   ```
-   仔细阅读题库，之后我会向你提问，请你根据题库内容和已有知识回答我的问题。
+## 隐私声明
 
-   (tips: dont forget to upload the knowledge base)
-   ```
+本扩展不会收集或上传任何用户数据。所有操作均在本地完成。
 
-2. Provide multiple choice questions and have GPT return answers in the given format.
-   Prompt example:
+## 许可证
 
-   ```
-   回答下列单选题，并按如下格式返回：
-   1. A
-   2. C
-   ...
+本项目采用 [MIT 许可证](LICENSE)。
 
-   <single questions>
-   ```
+## 贡献
 
-3. Provide multiple choice questions and have GPT return answers in the given format.
-   Prompt example:
-
-   ```
-   回答下列多选题，并按如下格式返回：
-   1. A, C
-   2. A, B, C
-   ...
-
-   <multiple questions>
-   ```
-
-4. Provide true/false questions and have GPT return answers in the given format.
-   Prompt example:
-
-   ```
-   回答下列判断题，并按如下格式返回：
-   1. 正确
-   2. 错误
-   ...
-
-   <true/false questions>
-   ```
-
-## License
-
-This plugin is licensed under the [MIT License](LICENSE). You are free to use, copy, modify, and distribute this plugin, but please retain the author information and license statement.
+欢迎提交 Issue 或 Pull Request 来帮助改进这个项目。
