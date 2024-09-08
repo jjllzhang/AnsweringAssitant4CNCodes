@@ -52,7 +52,7 @@
             padding: 8px;
             font-size: 13px;
             resize: vertical;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             background-color: #f9f9f9;
             color: #333;
             line-height: 1.4;
@@ -61,12 +61,13 @@
         textarea:focus {
             outline: none;
             border-color: #3498db;
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(52, 152, 219, 0.1);
             background-color: #fff;
         }
 
         textarea::placeholder {
-            color: #999;
+            color: #7f8c8d;
             font-style: italic;
             white-space: pre-line;
             line-height: 1.4;
@@ -104,7 +105,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             font-size: 13px;
             font-weight: 500;
             margin: 0 4px;
@@ -120,11 +121,13 @@
 
         button:hover {
             background-color: #2980b9;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         button:active {
-            transform: translateY(1px);
+            transform: translateY(0);
+            box-shadow: none;
         }
 
         #message {
@@ -132,7 +135,8 @@
             bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #2ecc71;
+            background-color: #3498db;
+            /* 改为蓝色 */
             color: white;
             padding: 8px 16px;
             border-radius: 20px;

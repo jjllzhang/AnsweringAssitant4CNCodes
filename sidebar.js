@@ -28,6 +28,7 @@ logo.style.cssText = `
     z-index: 10001;
     border-radius: 5px 0 0 5px;
     box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
 `;
 
 // 创建iframe来加载popup.html
@@ -58,15 +59,21 @@ document.body.appendChild(sidebar);
 document.body.appendChild(logo);
 
 // 添加事件监听器
-logo.addEventListener('click', () => {
-    sidebar.style.right = '0';
-    logo.style.right = '320px';
-});
+let sidebarOpen = false;
 
-closeButton.addEventListener('click', () => {
-    sidebar.style.right = '-320px';
-    logo.style.right = '0';
-});
+function toggleSidebar() {
+    if (sidebarOpen) {
+        sidebar.style.right = '-320px';
+        logo.style.right = '0';
+    } else {
+        sidebar.style.right = '0';
+        logo.style.right = '320px';
+    }
+    sidebarOpen = !sidebarOpen;
+}
+
+logo.addEventListener('click', toggleSidebar);
+closeButton.addEventListener('click', toggleSidebar);
 
 // 移除滚动事件监听器，因为我们不再需要它
 // window.addEventListener('scroll', () => { ... });
