@@ -2,7 +2,7 @@
 
 ## 简介
 
-密码技术竞赛智能答题助手是一款Chrome/Edge浏览器扩展，旨在帮助参加[中国密码技术竞赛](https://chinacodes.com.cn)的用户更高效地完成在线答题。本扩展支持单选题、多选题和判断题的自动抓取和填充功能。
+密码技术竞赛智能答题助手是一款 Chrome/Edge 浏览器扩展，旨在帮助参加[中国密码技术竞赛](https://chinacodes.com.cn)的用户更高效地完成在线答题。本扩展支持单选题、多选题和判断题的自动抓取和填充功能。
 
 ## 主要功能
 
@@ -14,17 +14,20 @@
 
 1. 下载插件：
    方法一：直接下载 ZIP 文件
+
    - 访问本项目的 GitHub 页面
    - 点击 "Code" 按钮，然后选择 "Download ZIP"
    - 解压下载的 ZIP 文件到您的计算机上
 
    方法二：使用 Git 克隆仓库
+
    - 打开命令行终端
    - 导航到您想要保存项目的目录
    - 运行以下命令：
      ```
      git clone https://github.com/jjllzhang/AnsweringAssitant4CNCodes.git
      ```
+
 2. 在 Chrome/Edge 浏览器中安装插件：
    - 打开 Chrome/Edge 浏览器
    - 在地址栏输入 `chrome://extensions/`/`edge://extensions/` 并回车
@@ -35,17 +38,16 @@
 
 ## 使用方法
 
-1. 安装扩展后，在竞赛页面的右侧会出现一个固定的logo按钮。
-2. 点击logo按钮，侧边栏会滑出，显示操作界面。
-3. 
-   - 打开任一支持基于知识库对话的GPT（如kimi chat），上传相应题库（题库参考[attachments](./attachments)或以下在线文档：[1](https://notes.sjtu.edu.cn/9GP6lZNgSp6xY9-azlv4eg),[2](https://notes.sjtu.edu.cn/s/byv9okec4),[3](https://notes.sjtu.edu.cn/s/SzxZknezu),[4](https://notes.sjtu.edu.cn/s/UKMHmRJoU)），调用GPT阅读知识库，提示词如下：
+1. 安装扩展后，在竞赛页面的右侧会出现一个固定的 logo 按钮。
+2. 点击 logo 按钮，侧边栏会滑出，显示操作界面。
+3. - 打开任一支持基于知识库对话的 GPT（如 kimi chat），上传相应题库（题库参考[attachments](./attachments)或以下在线文档：[1](https://notes.sjtu.edu.cn/9GP6lZNgSp6xY9-azlv4eg),[2](https://notes.sjtu.edu.cn/s/byv9okec4),[3](https://notes.sjtu.edu.cn/s/SzxZknezu),[4](https://notes.sjtu.edu.cn/s/UKMHmRJoU)），调用 GPT 阅读知识库，提示词如下：
    ```
    仔细阅读题库，之后我会向你提问，请你根据题库内容和已有知识回答我的问题
    ```
    - 点击"抓取题目"按钮，将相应类型的题目复制到剪贴板。
-   - 根据刚才抓取的题目向GPT提问,获取对应题目答案。
+   - 根据刚才抓取的题目向 GPT 提问,获取对应题目答案。
    - 在文本框中输入答案，然后点击"提交答案"按钮，自动填充到页面中。
-4. 使用完毕后，点击侧边栏右上角的关闭按钮，侧边栏会收起。
+4. 使用完毕后，点击侧边栏右上角的关闭按钮或直接点击 logo 按钮，侧边栏会收起。
 
 ## 答案格式
 
