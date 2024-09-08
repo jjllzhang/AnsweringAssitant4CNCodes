@@ -17,7 +17,7 @@
 3. 
    - 打开任一支持基于知识库对话的GPT（如kimi chat），上传相应题库（题库参考[attachments](./attachments)或以下在线文档：[1](https://notes.sjtu.edu.cn/9GP6lZNgSp6xY9-azlv4eg),[2](https://notes.sjtu.edu.cn/s/byv9okec4),[3](https://notes.sjtu.edu.cn/s/SzxZknezu),[4](https://notes.sjtu.edu.cn/s/UKMHmRJoU)），调用GPT阅读知识库，提示词如下：
    ```
-   仔细阅读题库，之后我会向你提问，请你主要根据题库内容回答我的问题，若题库中没有检索到相应题目，请根据你已有的知识回答。
+   仔细阅读题库，之后我会向你提问，请你根据题库内容和已有知识回答我的问题
    ```
    - 点击"抓取题目"按钮，将相应类型的题目复制到剪贴板。
    - 根据刚才抓取的题目向GPT提问,获取对应题目答案。
