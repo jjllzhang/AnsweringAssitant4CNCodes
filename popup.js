@@ -15,7 +15,42 @@ function extractMultipleChoiceAnswers(input) {
 }
 
 function sendAnswers(type, answers) {
-    window.parent.postMessage({ action: 'sendMessageToContentScript', message: { type: type, answers: answers } }, '*');
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (chrome.runtime.lastError) {
+            console.error('Error querying tabs:', chrome.runtime.lastError);
+            return;
+        }
+        if (tabs.length === 0) {
+            console.error('No active tab found');
+            return;
+        }
+        chrome.tabs.sendMessage(tabs[0].id, {
+            action: 'fillAnswers',
+            type: type,
+            answers: answers
+        }, response => {
+            if (chrome.runtime.lastError) {
+                console.error('Error sending message:', chrome.runtime.lastError);
+            } else {
+                console.log('Message sent successfully');
+                let messageText;
+                switch (type) {
+                    case 'single':
+                        messageText = '单选题答案已提交';
+                        break;
+                    case 'multiple':
+                        messageText = '多选题答案已提交';
+                        break;
+                    case 'truefalse':
+                        messageText = '判断题答案已提交';
+                        break;
+                    default:
+                        messageText = '答案已提交';
+                }
+                showMessage(messageText);
+            }
+        });
+    });
 }
 
 function showMessage(message) {
@@ -71,8 +106,9 @@ document.getElementById('fetchSingle').addEventListener('click', () => {
             if (chrome.runtime.lastError) {
                 console.error('Error sending message:', chrome.runtime.lastError);
             } else if (response && response.questions) {
+                document.getElementById('singleChoiceQuestions').value = response.questions;
                 await copyToClipboard(response.questions);
-                showMessage('单选题已复制到剪贴板');
+                showMessage('单选题已复制到剪贴板并显示在下方');
             } else {
                 console.error('Unexpected response:', response);
             }
@@ -82,10 +118,22 @@ document.getElementById('fetchSingle').addEventListener('click', () => {
 
 async function copyToClipboard(text) {
     try {
-        await navigator.clipboard.writeText(text);
-        console.log('Text copied to clipboard');
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(text);
+            console.log('Text copied to clipboard using Clipboard API');
+        } else {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            console.log('Text copied to clipboard using execCommand');
+        }
     } catch (err) {
         console.error('Failed to copy text: ', err);
+        // 如果复制失败，可以考虑显示错误消息给用户
+        showMessage('复制到剪贴板失败，请手动复制');
     }
 }
 
@@ -108,8 +156,9 @@ document.getElementById('fetchMultiple').addEventListener('click', () => {
             if (chrome.runtime.lastError) {
                 console.error('Error sending message:', chrome.runtime.lastError);
             } else if (response && response.questions) {
+                document.getElementById('multipleChoiceQuestions').value = response.questions;
                 await copyToClipboard(response.questions);
-                showMessage('多选题已复制到剪贴板');
+                showMessage('多选题已复制到剪贴板并显示在下方');
             } else {
                 console.error('Unexpected response:', response);
             }
@@ -136,8 +185,9 @@ document.getElementById('fetchTrueFalse').addEventListener('click', () => {
             if (chrome.runtime.lastError) {
                 console.error('Error sending message:', chrome.runtime.lastError);
             } else if (response && response.questions) {
+                document.getElementById('trueFalseQuestions').value = response.questions;
                 await copyToClipboard(response.questions);
-                showMessage('判断题已复制到剪贴板');
+                showMessage('判断题已复制到剪贴板并显示在下方');
             } else {
                 console.error('Unexpected response:', response);
             }
